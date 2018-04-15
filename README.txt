@@ -1,4 +1,7 @@
+This is a Python/Django demo project.
 
+To run the project:
+===================
 1. Open the terminal or command line. Go inside the project
 $ cd demo
 
