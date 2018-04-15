@@ -1,0 +1,75 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'appointments/style.css' %}" />
+<script src="{% static 'appointments/appointment.js' %}"></script>
+{% endblock header %}
+
+
+
+{% block content %}
+<div class="row top-buffer ">
+<div class="col-sm-12">
+    <input type="button" value="New" id="btn_new" class="btn btn-primary btn-sm"/>
+
+    <form action="{% url 'appointments:app_add' %}" method="post" 
+        onsubmit="this.disabled=true" 
+        id="form_add" style="{% if hide_form %}display:none{% endif %}">
+        {% csrf_token %}
+
+        <input type="submit" value="Add" id="btn_add" class="btn btn-success btn-sm"/>
+        <input type="button" value="Cancel" id="btn_cancel"  class="btn btn-secondary btn-sm"/>
+        <div class="clearfix"></div>
+
+        {% if form.non_field_errors %}
+        <div class="invalid-feedback" style="display:block">{{form.non_field_errors}}</div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="form-group row">
+            <label for="{{field.id_for_label}}" class="col-sm-2 col-form-label">{{field.label}}</label>
+            <div class="col-sm-4">{{field}}</div>
+            <small id="passwordHelpInline" class="text-muted">
+                {{field.help_text}}
+            </small>
+            {% if field.errors %}
+            <div class="invalid-feedback col-sm-4" style="display:block">{{field.errors}}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </form>
+</div>
+</div>
+
+
+<div class="row top-buffer ">
+    <div class="col">
+        <input type="input" id="txt_keyword" value="" class="form-control form-control-sm"/>
+    </div>
+    <div class="col">
+        <input type="button" value="Search" id="btn_search" class="btn btn-secondary btn-sm"/>
+    </div>
+    {% csrf_token %}
+</div>
+
+<div class="row">
+<div class="col-sm-8">
+    <table id="tbl_app" class="table table-sm table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Appointment Date</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">No appointments are available.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-sm-4"></div>
+</div>
+
+{% endblock content %}
