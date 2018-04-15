@@ -27,14 +27,15 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 if(data.list.length == 0) {
-                    var td = $("<td/>", {'colspan':2}).text("No appointments are available.");
+                    var td = $("<td/>", {'colspan':3}).text("No appointments are available.");
                     $('<tr/>').append(td).appendTo("#tbl_app tbody");
                     return;
                 }
                 for(var i=0; i<data.list.length; i++) {
-                    var td1 = $("<td/>").text(data.list[i]['app_date_format']);
-                    var td2 = $("<td/>").text(data.list[i]['description']);
-                    $('<tr/>').append(td1, td2).appendTo("#tbl_app tbody");
+                    var td1 = $("<td/>").text(data.list[i]['date']);
+                    var td2 = $("<td/>").text(data.list[i]['time']);
+                    var td3 = $("<td/>").text(data.list[i]['description']);
+                    $('<tr/>').append(td1, td2, td3).appendTo("#tbl_app tbody");
                 }
             }
         });
