@@ -16,6 +16,19 @@ def index(request):
     return render(request, 'appointments/index.html', context)
 
 
+def getAppointments(request):
+    keyword = request.POST.get('keyword', '').strip()
+
+    appointment_list = Appointment.objects.order_by('app_date')
+    if len(keyword) > 0:
+        appointment_list = appointment_list.filter(description__icontains=keyword)
+
+    data = {
+        'list': list(appointment_list.values())
+    }
+    return JsonResponse(data)
+
+
 def add(request):
     form = AppointmentForm(request.POST)
 
@@ -28,20 +41,6 @@ def add(request):
         'hide_form': False
     }
     return render(request, 'appointments/index.html', context)
-
-
-def getAppointments(request):
-    keyword = request.POST.get('keyword', '').strip()
-
-    appointment_list = Appointment.objects.order_by('description')
-    if len(keyword) > 0:
-        appointment_list = appointment_list.filter(description__icontains=keyword)
-
-    data = {
-        'list': list(appointment_list.values())
-    }
-    return JsonResponse(data)
-
 
 
 

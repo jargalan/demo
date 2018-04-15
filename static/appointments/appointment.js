@@ -22,7 +22,7 @@ $(document).ready(function(){
         $("#tbl_app tbody").html("");
         $.ajax({
             type: "POST",
-            url: "/appointments/list",
+            url: "/list",
             data: {'keyword': $("#txt_keyword").val()},
             dataType: 'json',
             success: function(data) {

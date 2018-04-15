@@ -11,7 +11,7 @@
 {% block content %}
 <div class="row top-buffer ">
 <div class="col-sm-12">
-    <input type="button" value="New" id="btn_new" class="btn btn-primary btn-sm"/>
+    <input type="button" value="New" id="btn_new" class="btn btn-primary btn-sm" style="{% if not hide_form %}display:none{% endif %}"/>
 
     <form action="{% url 'appointments:app_add' %}" method="post" 
         onsubmit="this.disabled=true" 

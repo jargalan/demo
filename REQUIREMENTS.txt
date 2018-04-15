@@ -1,0 +1,16 @@
+Requirement:
+
+1. Python3
+
+Python version: Python 3.6.5
+
+
+2. Django
+
+- Install Django on Linux (https://docs.djangoproject.com/en/2.0/topics/install/)
+$ sudo easy_install pip
+$ pip install Django==2.0.4
+
+- Install Django on Windows (https://docs.djangoproject.com/en/2.0/howto/windows/)
+  Install pip package (https://pypi.python.org/pypi/pip)
+$ pip install Django==2.0.4
