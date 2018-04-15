@@ -18,13 +18,14 @@ def index(request):
 
 def getAppointments(request):
     keyword = request.POST.get('keyword', '').strip()
+    select_data = {"app_date_format": """strftime('%%m/%%d/%%Y %%H:%%M:%%S', app_date)"""}
 
-    appointment_list = Appointment.objects.order_by('app_date')
+    appointment_list = Appointment.objects.extra(select=select_data).order_by('app_date')
     if len(keyword) > 0:
         appointment_list = appointment_list.filter(description__icontains=keyword)
 
     data = {
-        'list': list(appointment_list.values())
+        'list': list(appointment_list.values("app_date_format", "description"))
     }
     return JsonResponse(data)
 

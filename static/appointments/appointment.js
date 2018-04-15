@@ -32,7 +32,7 @@ $(document).ready(function(){
                     return;
                 }
                 for(var i=0; i<data.list.length; i++) {
-                    var td1 = $("<td/>").text(data.list[i]['app_date']);
+                    var td1 = $("<td/>").text(data.list[i]['app_date_format']);
                     var td2 = $("<td/>").text(data.list[i]['description']);
                     $('<tr/>').append(td1, td2).appendTo("#tbl_app tbody");
                 }
