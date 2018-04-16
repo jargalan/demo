@@ -18,7 +18,7 @@ def index(request):
 
 def getAppointments(request):
     keyword = request.POST.get('keyword', '').strip()
-    select_data = {"date": """strftime('%%m/%%d/%%Y', app_date)""",
+    select_data = {"date": """strftime('%%m/%%d', app_date)""",
                    "time": """strftime('%%H:%%M', app_date)"""}
 
     appointment_list = Appointment.objects.extra(select=select_data).order_by('app_date')

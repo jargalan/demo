@@ -1,3 +1,5 @@
+var MONTHS = ["", "Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 $(document).ready(function(){
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -14,8 +16,8 @@ $(document).ready(function(){
     });
 
     $("#btn_cancel").click(function(){
-        $("#btn_new").show();
         $("#form_add").slideUp();
+        $("#btn_new").show();
     });
 
     $("#btn_search").click(function(){
@@ -32,8 +34,8 @@ $(document).ready(function(){
                     return;
                 }
                 for(var i=0; i<data.list.length; i++) {
-                    var td1 = $("<td/>").text(data.list[i]['date']);
-                    var td2 = $("<td/>").text(data.list[i]['time']);
+                    var td1 = $("<td/>").text(formatDate(data.list[i]['date']));
+                    var td2 = $("<td/>").text(formatTime(data.list[i]['time']));
                     var td3 = $("<td/>").text(data.list[i]['description']);
                     $('<tr/>').append(td1, td2, td3).appendTo("#tbl_app tbody");
                 }
@@ -49,3 +51,14 @@ $(document).ready(function(){
 
     $("#btn_search").trigger("click");
 });
+
+function formatDate(_date) {
+    var date = _date.split('/');
+    return MONTHS[parseInt(date[0])] + ' ' + parseInt(date[1]);
+}
+function formatTime(_time) {
+    var time = _time.split(':');
+    var suffix = (parseInt(time[0]) >= 12) ? 'pm' : 'am';
+    var hours = ((parseInt(time[0]) + 11) % 12 + 1);
+    return hours + ':' + time[1] + suffix;
+}
